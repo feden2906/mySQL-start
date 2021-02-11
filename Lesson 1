@@ -6,6 +6,7 @@ create new user
 
 
 
+
 INSERT INTO `sep-2020`.cars VALUE (DEFAULT, 'Mazda'); # id = DEFAULT
 
 SELECT * FROM students;
