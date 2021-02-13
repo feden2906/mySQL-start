@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `bank`.`client` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `mydb`.`Application`
 -- -----------------------------------------------------
