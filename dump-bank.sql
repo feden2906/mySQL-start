@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS `bank`.`department` (
   PRIMARY KEY (`idDepartment`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `mydb`.`Client`
 -- -----------------------------------------------------
