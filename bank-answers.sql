@@ -59,3 +59,39 @@ SELECT FirstName, LastName, MAX(Sum) maxSum
 FROM application
          JOIN client on idClient = application.Client_idClient
 GROUP BY idClient;
+
+# 11. Визначити кількість заявок на крдеит для кожного клієнта.
+SELECT COUNT(idClient), FirstName, LastName
+FROM client c
+         JOIN application a ON c.idClient = a.Client_idClient
+GROUP BY idClient;
+
+# 12. Визначити найбільший та найменший кредити.
+SELECT MAX(Sum) AS max, MIN(Sum) AS min
+FROM application;
+
+# 13. Порахувати кількість кредитів для клієнтів,які мають вищу освіту.
+SELECT SUM(Client_idClient) AS creditNum, FirstName, LastName, Education
+FROM application a
+         JOIN client c ON c.idClient = a.Client_idClient
+         JOIN department d ON d.idDepartment = c.idClient
+WHERE Education = 'high'
+GROUP BY idClient;
+
+# 14. Вивести дані про клієнта, в якого середня сума кредитів найвища.
+SELECT AVG(Sum) AS AVGsum, FirstName, LastName, Education, Passport, City, Age, DepartmentCity
+FROM client c
+         JOIN application a ON c.idClient = a.Client_idClient
+         JOIN department d ON d.idDepartment = c.Department_idDepartment
+GROUP BY idClient
+ORDER BY AVGsum DESC
+LIMIT 1;
+
+# 15. Вивести відділення, яке видало в кредити найбільше грошей
+SELECT SUM(Sum) AS borrowSum, DepartmentCity
+FROM application a
+         JOIN client c ON c.idClient = a.Client_idClient
+         JOIN department d ON d.idDepartment = c.Department_idDepartment
+GROUP BY idDepartment
+ORDER BY borrowSum DESC
+LIMIT 1;
