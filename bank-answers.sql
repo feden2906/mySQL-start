@@ -170,3 +170,19 @@ FROM application
 GROUP BY idClient
 ORDER BY creditSum
 LIMIT 1;
+
+# Знайти кредити, сума яких більша за середнє значення усіх кредитів
+SELECT idApplication, CreditState, Sum, Currency
+FROM application
+WHERE Sum > (SELECT AVG(Sum) FROM application);
+
+# Знайти клієнтів, які є з того самого міста, що і клієнт, який взяв найбільшу кількість кредитів
+SELECT DISTINCT idClient, LastName, FirstName, Passport
+FROM client c
+         JOIN application a ON a.Client_idClient = c.idClient
+WHERE c.City = (SELECT City
+                FROM client c2
+                         JOIN application a2 ON a2.Client_idClient = c2.idClient
+                GROUP BY idClient
+                ORDER BY COUNT(a2.Client_idClient) DESC
+                LIMIT 1);
