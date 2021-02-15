@@ -135,3 +135,25 @@ WHERE Client_idClient IN (
        OR LastName LIKE '_y%'
        OR LastName LIKE '_i%'
        OR LastName LIKE '_u%');
+
+
+
+
+
+
+# Знайти львівські відділення, які видали кредитів на загальну суму більше ніж 5000
+SELECT SUM(Sum) AS creditSum
+FROM application
+         JOIN client c on c.idClient = application.Client_idClient
+         JOIN department d on d.idDepartment = c.Department_idDepartment
+WHERE DepartmentCity = 'Lviv'
+  AND Sum > 5000
+GROUP BY idDepartment;
+
+# Знайти клієнтів, які повністю погасили кредити на суму більше ніж 5000
+SELECT SUM(Sum) AS creditSum, idClient, FirstName, LastName, Passport
+FROM application a
+         JOIN client c ON c.idClient = a.Client_idClient
+WHERE a.CreditState = 'Returned'
+GROUP BY c.idClient
+HAVING creditSum > 5000;
