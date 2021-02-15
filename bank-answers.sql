@@ -186,3 +186,11 @@ WHERE c.City = (SELECT City
                 GROUP BY idClient
                 ORDER BY COUNT(a2.Client_idClient) DESC
                 LIMIT 1);
+
+# місто чувака який набрав найбільше кредитів
+SELECT COUNT(Client_idClient) AS creditCount, c.City, c.idClient, c.FirstName, c.LastName
+FROM application a
+         JOIN client c ON c.idClient = a.Client_idClient
+GROUP BY c.idClient
+ORDER BY creditCount DESC
+LIMIT 1;
