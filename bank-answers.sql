@@ -157,3 +157,16 @@ FROM application a
 WHERE a.CreditState = 'Returned'
 GROUP BY c.idClient
 HAVING creditSum > 5000;
+
+# Знайти максимальний неповернений кредит.
+SELECT MAX(Sum) AS creditSum
+FROM application
+WHERE CreditState = 'Not returned';
+
+# Знайти клієнта, сума кредиту якого найменша
+SELECT SUM(Sum) AS creditSum, FirstName, LastName, Passport, City
+FROM application
+         JOIN client c ON c.idClient = application.Client_idClient
+GROUP BY idClient
+ORDER BY creditSum
+LIMIT 1;
